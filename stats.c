@@ -1,21 +1,27 @@
 /******************************************************************************
- * Copyright (C) 2017 by Alex Fosdick - University of Colorado
+ * Copyright (C) 2019 by Prakhar Jain - Iowa State University
  *
  * Redistribution, modification or use of this software in source or binary
  * forms is permitted as long as the files maintain this copyright. Users are 
  * permitted to modify this and use it to learn about the field of embedded
- * software. Alex Fosdick and the University of Colorado are not liable for any
+ * software. Prakhar Jain and Iowa State University are not liable for any
  * misuse of this material. 
  *
  *****************************************************************************/
-/**
- * @file <Add File Name> 
- * @brief <Add Brief Description Here >
+/*
+ * @file stats.c 
+ * @brief C-program that performs statistical analytics on a given dataset
+ * 
+ * A C-Program that exhibits a handful of basic c-programming
+ * features to show how to calculate some statistics on a given set of numbers:
+ *     -Maximum
+ *     -Minimum
+ *     -Sorting an array of numbers
+ *     -Mean
+ *     -Median
  *
- * <Add Extended Description Here>
- *
- * @author <Add FirsName LastName>
- * @date <Add date >
+ * @author Prakhar Jain
+ * @date 6th Sept 2019
  *
  */
 
