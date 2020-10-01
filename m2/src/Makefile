@@ -27,6 +27,7 @@
 #      HOST - Default Platform
 #      MSP432 - Target cross-compiled Embedded System Platform
 #------------------------------------------------------------------------------
+
 include sources.mk
 
 # Platform Overrides
@@ -101,3 +102,4 @@ $(TARGET).out:$(OBJS)
 .PHONY: clean
 clean:
 	rm -f $(PREP) $(ASSM) $(OBJS) $(DEPN) $(TARGET).out $(TARGET).map 
+
