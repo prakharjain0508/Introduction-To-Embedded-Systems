@@ -7,31 +7,14 @@
 # software. Alex Fosdick and the University of Colorado are not liable for any
 # misuse of this material. 
 #
+# Author: Prakhar Jain
 #*****************************************************************************
 
-PLATFORM = HOST
+# Add your Source files to this variable
+SRCS = main.c \
+       memory.c 
 
-ifeq($(PLATFORM), MSP432)
-	# Add your Source files to this variable
-	SOURCES = main.c \
-		  memory.c \
-		  startup_msp432p401r_gcc.c \
-		  system_msp432p401r.c \
-		  interrupts_msp432p401r_gcc.c
-
-	# Add your include paths to this variable
-	INCLUDES = -I /home/ecee/ese-coursera-course1/assessments/m2/include/common \
-		   -I /home/ecee/ese-coursera-course1/assessments/m2/include/CMSIS \
-		   -I /home/ecee/ese-coursera-course1/assessments/m2/msp432
-
-else
-	# Add your Source files to this variable
-	SOURCES = main.c \
-		  memory.c \
-
-	# Add your include paths to this variable
-	INCLUDES = -I /home/ecee/ese-coursera-course1/assessments/m2/include/common \
-		   -I /home/ecee/ese-coursera-course1/assessments/m2/include/CMSIS
-
-endif
+# Add your include paths to this variable
+INCLUDES = -I ../include/common \
+	   -I ../include/CMSIS 
 

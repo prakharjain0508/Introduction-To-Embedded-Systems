@@ -7,6 +7,7 @@
 # software. Alex Fosdick and the University of Colorado are not liable for any
 # misuse of this material. 
 #
+# Author: Prakhar Jain
 #*****************************************************************************
 
 #------------------------------------------------------------------------------
@@ -31,7 +32,7 @@
 include sources.mk
 
 # Platform Overrides
-PLATFORM = HOST
+#PLATFORM = HOST
 
 GENERAL_FLAGS = -Wall \
 		-Werror \
@@ -39,10 +40,22 @@ GENERAL_FLAGS = -Wall \
 		-O0 \
 		-std=c99
 
-ifeq ($(PLATFORM), MSP432)
+ifeq ($(PLATFORM),MSP432)
+	
+	#Sources files for MSP432
+	SRCS = main.c \
+       	       memory.c \
+	       startup_msp432p401r_gcc.c \
+       	       system_msp432p401r.c \
+       	       interrupts_msp432p401r_gcc.c
+
+	#Include Paths for MSP432
+	INCLUDES = -I ../include/common \
+	   	   -I ../include/CMSIS \
+		   -I ../include/msp432
 
 	# Architectures Specific Flags
-	LINKER_FILE = /home/ecee/ese-coursera-course1/assessments/msp432p401r.lds
+	LINKER_FILE = msp432p401r.lds
 	CPU = cortex-m4
 	ARCH = armv7e-m
 	SPECS = nosys.specs
@@ -55,9 +68,9 @@ ifeq ($(PLATFORM), MSP432)
 	LD = arm-none-eabi-ld
 	SIZE = arm-none-eabi-size
 	TARGET = c1m2
-	LDFLAGS = -Wl,-Map=$(TARGET).map -T -L $(LINKER_FILE)
-	CFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) -mfpu=$(FPU) -mfloat-abi=$(FP_ABI) --specs=$(SPECS) -$(GENERAL_FLAGS)
-	CPPFLAGs = -DMSP432 $(INCLUDES)
+	LDFLAGS = -Wl,-Map=$(TARGET).map -L ../ -T $(LINKER_FILE)
+	CFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) -mfpu=$(FPU) -mfloat-abi=$(FP_ABI) --specs=$(SPECS) $(GENERAL_FLAGS)
+	CPPFLAGS = -DMSP432 $(INCLUDES)
 
 else
 
@@ -66,8 +79,8 @@ else
 	SIZE = size
 	TARGET = c1m2
 	LDFLAGS = -Wl,-Map=$(TARGET).map
-	CFLAGS = -$(GENERAL_FLAGS)
-	CPPFLAGs = -DHOST $(INCLUDES)
+	CFLAGS = $(GENERAL_FLAGS)
+	CPPFLAGS = -DHOST $(INCLUDES)
 	
 
 endif
