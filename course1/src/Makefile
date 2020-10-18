@@ -32,7 +32,10 @@
 include sources.mk
 
 # Platform Overrides
-#PLATFORM = HOST
+PLATFORM = HOST
+#VERBOSE := $(VERBOSE)
+#COURSE1 := $(COURSE1)
+flag = 0
 
 GENERAL_FLAGS = -Wall \
 		-Werror \
@@ -45,6 +48,9 @@ ifeq ($(PLATFORM),MSP432)
 	#Sources files for MSP432
 	SRCS = main.c \
        	       memory.c \
+	       data.c \
+	       stats.c \
+	       course1.c \
 	       startup_msp432p401r_gcc.c \
        	       system_msp432p401r.c \
        	       interrupts_msp432p401r_gcc.c
@@ -67,21 +73,32 @@ ifeq ($(PLATFORM),MSP432)
 	CC = arm-none-eabi-gcc
 	LD = arm-none-eabi-ld
 	SIZE = arm-none-eabi-size
-	TARGET = c1m2
+	TARGET = c1m4
 	LDFLAGS = -Wl,-Map=$(TARGET).map -L ../ -T $(LINKER_FILE)
 	CFLAGS = -mcpu=$(CPU) -mthumb -march=$(ARCH) -mfpu=$(FPU) -mfloat-abi=$(FP_ABI) --specs=$(SPECS) $(GENERAL_FLAGS)
-	CPPFLAGS = -DMSP432 $(INCLUDES)
+	CPPFLAGS = -DMSP432 $(INCLUDES) 
 
 else
 
 	# Compiler Flags and Defines
 	CC = gcc
 	SIZE = size
-	TARGET = c1m2
+	TARGET = c1m4
 	LDFLAGS = -Wl,-Map=$(TARGET).map
 	CFLAGS = $(GENERAL_FLAGS)
-	CPPFLAGS = -DHOST $(INCLUDES)
-	
+	ifeq ($(VERBOSE)$(COURSE1),11)      #Using String Concatination technique as there is not logical AND, OR operations supported in MAKE
+		CPPFLAGS = -DVERBOSE -DCOURSE1 -DHOST $(INCLUDES)
+		flag=1
+	else
+		CPPFLAGS = -DHOST $(INCLUDES)
+	endif
+
+	ifeq ($(VERBOSE)$(flag),10)
+		CPPFLAGS = -DVERBOSE -DHOST $(INCLUDES)
+	endif
+	ifeq ($(COURSE1)$(flag),10)
+		CPPFLAGS = -DCOURSE1 -DHOST $(INCLUDES)
+	endif
 
 endif
 

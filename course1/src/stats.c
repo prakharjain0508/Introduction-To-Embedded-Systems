@@ -29,12 +29,12 @@
 
 #include <stdio.h>
 #include "stats.h"
-
+#include "platform.h"
 
 /* Size of the Data Set */
 #define SIZE (40)
-
-void main() {
+/*
+int main() {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
                               114, 88,   45,  76, 123,  87,  25,  23,
@@ -42,13 +42,15 @@ void main() {
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100, 90};
 
-  /* Other Variable Declarations Go Here */
-
-  /* Statistics and Printing Functions Go Here */
-  print_array(test, SIZE);
+  #ifdef VERBOSE   
+	print_array(test, SIZE);
+  #endif
   sort_array(test, SIZE);									   // The original array is now SORTED!					
   print_statistics(test, SIZE);
+
+  return 0;
 }
+*/
 
 /* Add other Implementation File Code Here */
 
@@ -67,11 +69,11 @@ void sort_array(unsigned char * ptr, unsigned int length) {
 
 /**************** UNCOMMENT THE FOLLOWING BLOCK OF CODE TO PRINT THE SORTED ARRAY **********************/
 
-/*printf("\nThe SORTED version (largest to smallest) of the given array elements with their corresponding indices are { element[index] } : \n");
+/*PRINTF("\nThe SORTED version (largest to smallest) of the given array elements with their corresponding indices are { element[index] } : \n");
   for(i=0; i < length; i++) {
     if(i==10 || i==20 || i==30)
-      printf("\n");
-    printf("%d[%d] ", ptr[i], i); 
+      PRINTF("\n");
+    PRINTF("%d[%d] ", ptr[i], i); 
   }*/
 
 }
@@ -108,22 +110,24 @@ unsigned char find_median(unsigned char * ptr, unsigned int length) {
 }
 
 void print_statistics(unsigned char * ptr, unsigned int length) {
-  printf("\n\n*********** The values for Mean and Median have been rounded off to the nearest integer ***********");
-  printf("\n\nThe Minimum in the given array is : %d", find_minimum(ptr, length));
-  printf("\nThe Maximum in the given array is : %d", find_maximum(ptr, length));
-  printf("\nThe Mean of the given array is : %d", find_mean(ptr, length));
-  printf("\nThe Median of the given array is : %d \n", find_median(ptr, length));
+  PRINTF("\n\n*********** The values for Mean and Median have been rounded off to the nearest integer ***********");
+  PRINTF("\n\nThe Minimum in the given array is : %d", find_minimum(ptr, length));
+  PRINTF("\nThe Maximum in the given array is : %d", find_maximum(ptr, length));
+  PRINTF("\nThe Mean of the given array is : %d", find_mean(ptr, length));
+  PRINTF("\nThe Median of the given array is : %d \n", find_median(ptr, length));
 }
 
 
 void print_array(unsigned char * ptr, unsigned int length) {
-  printf("\nThe given array elements with their corresponding indices are { element[index] }: \n");
-  int i;
-  for(i = 0; i < length; i++) {
-    if(i==10 || i==20 || i==30)
-      printf("\n");
-    printf("%d[%d] ", ptr[i], i);
-  }
-  printf("\n");
+  #ifdef VERBOSE
+    PRINTF("\nThe given array elements with their corresponding indices are { element[index] }: \n");
+    int i;
+    for(i = 0; i < length; i++) {
+      if(i==10 || i==20 || i==30)
+        PRINTF("\n");
+      PRINTF("%d[%d] ", ptr[i], i);
+    }
+    PRINTF("\n");
+  #endif
 }
 

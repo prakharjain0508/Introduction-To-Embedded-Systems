@@ -12,8 +12,11 @@
 
 # Add your Source files to this variable
 SRCS = main.c \
-       memory.c 
-
+       memory.c \
+       data.c \
+       stats.c \
+       course1.c \
+	       
 # Add your include paths to this variable
 INCLUDES = -I ../include/common \
 	   -I ../include/CMSIS 
